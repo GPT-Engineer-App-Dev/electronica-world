@@ -1,5 +1,5 @@
 import { Box, Heading, SimpleGrid, Image, VStack, Text, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const sampleProducts = [
   { id: 1, name: "Smartphone", price: "$699", image: "/images/smartphone.jpg" },
@@ -7,12 +7,23 @@ const sampleProducts = [
   { id: 3, name: "Headphones", price: "$199", image: "/images/headphones.jpg" },
 ];
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const ProductList = () => {
+  const query = useQuery();
+  const searchQuery = query.get("q") || "";
+
+  const filteredProducts = sampleProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Box p={4}>
       <Heading as="h1" size="xl" mb={6}>Product Listing</Heading>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-        {sampleProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <Box key={product.id} borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
             <Image src={product.image} alt={product.name} />
             <VStack spacing={2} mt={4}>
