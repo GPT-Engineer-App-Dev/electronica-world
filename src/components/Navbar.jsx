@@ -1,0 +1,19 @@
+import { Box, Flex, Link, Spacer, Heading } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
+
+const Navbar = () => {
+  return (
+    <Box bg="teal.500" p={4}>
+      <Flex align="center">
+        <Heading as="h1" size="lg" color="white">
+          <Link as={RouterLink} to="/">Electronics Store</Link>
+        </Heading>
+        <Spacer />
+        <Link as={RouterLink} to="/" color="white" mr={4}>Home</Link>
+        <Link as={RouterLink} to="/products" color="white">Products</Link>
+      </Flex>
+    </Box>
+  );
+};
+
+export default Navbar;
